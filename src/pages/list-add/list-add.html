@@ -1,0 +1,16 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Adicionar Lista</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-input type="text" placeholder="Nome da lista" [(ngModel)]="listName"></ion-input>
+        </ion-item>
+        <ion-item class="fdcl-search">
+            <button ion-button full (click)="addList()">Adicionar Lista</button>
+        </ion-item>
+    </ion-list>
+</ion-content>

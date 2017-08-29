@@ -1,5 +1,6 @@
 {
-  "name": "ionic3-angular4",
+  "name": "fortdev-checklist",
   "app_id": "",
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "integrations": {}
 }
