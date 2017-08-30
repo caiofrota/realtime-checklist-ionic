@@ -1,11 +1,14 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>Adicionar Lista</ion-title>
+        <ion-title>{{ name }}</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
     <ion-list>
+        <ion-item>
+            Usuário: /{{ user }}
+        </ion-item>
         <ion-item>
             <ion-input type="text" placeholder="Nome da lista" [(ngModel)]="listName"></ion-input>
         </ion-item>

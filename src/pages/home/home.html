@@ -7,15 +7,15 @@
 <ion-content padding>
     <ion-list>
         <ion-item class="fdcl-search">
-            <ion-input type="text" placeholder="Usuário" [(ngModel)]="user"></ion-input>
+            <ion-input type="text" placeholder="Lista" [(ngModel)]="listName"></ion-input>
             <button ion-button clear item-right (click)="searchList()"><i class="fa fa-search" style="font-size: large"></i></button>
         </ion-item>
         <ion-item class="fdcl-search">
-            <button ion-button full [disabled]="!user" (click)="addList()">Adicionar Lista</button>
+            <button ion-button full [disabled]="!listName" (click)="addList()">Adicionar Lista</button>
         </ion-item>
-        <ion-item *ngFor="let item of items | async">
-            {{item.$value}}
-            <button ion-button clear item-right (click)="removeList(item)"><i class="fa fa-trash" style="font-size: large"></i></button>
+        <ion-item *ngFor="let list of lists">
+            {{ list }}
+            <button ion-button clear item-right (click)="removeList(list)"><i class="fa fa-trash" style="font-size: large"></i></button>
         </ion-item>
     </ion-list>
 </ion-content>

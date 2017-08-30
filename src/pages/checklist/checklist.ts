@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 
@@ -6,7 +6,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
     selector: 'list-add',
     templateUrl: 'list-add.html'
 })
-export class ContactPage {
+export class ContactPage implements OnInit {
 
     private user: string;
     listName: string;
@@ -15,12 +15,16 @@ export class ContactPage {
                 private _firebase: AngularFireDatabase,
                 private _navParams: NavParams) {
                     console.log(this._navParams.get('user'));
-        this.user = this._navParams.get('user');
+        
     }
 
     addList(): void {
-        this._firebase.list('/checklists/' + this.user).push(this.listName);
+        this._firebase.list('/checklists/' + this.user).push({name: this.listName});
         this._navCtrl.pop();
+    }
+
+    ngOnInit(): void {
+        this.user = this._navParams.get('user');
     }
 
 }
