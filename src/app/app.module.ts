@@ -3,21 +3,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { TabsPage } from '../pages/tabs/tabs';
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AppConfigProvider, AppFirebaseConfig } from '../providers/app-config/app-config';
-import { HomeController, HomeService } from '../pages/home';
+
+import { HomeController } from '../pages/home';
+import { ChecklistService, ChecklistController } from '../pages/checklist';
 
 @NgModule({
     declarations: [
         MyApp,
         HomeController,
-        TabsPage
+        ChecklistController
     ],
     imports: [
         BrowserModule,
@@ -30,14 +31,14 @@ import { HomeController, HomeService } from '../pages/home';
         entryComponents: [
         MyApp,
         HomeController,
-        TabsPage
+        ChecklistController
     ],
     providers: [
         StatusBar,
         SplashScreen,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         AppConfigProvider,
-        HomeService
+        ChecklistService
     ]
 })
 export class AppModule {}

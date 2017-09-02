@@ -1,19 +1,22 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>{{ name }}</ion-title>
+        <ion-title>{{ (checklist | async)?.name }}</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
     <ion-list>
-        <ion-item>
-            Usuário: /{{ user }}
-        </ion-item>
-        <ion-item>
-            <ion-input type="text" placeholder="Nome da lista" [(ngModel)]="listName"></ion-input>
+        <ion-item class="fdcl-search">
+            <ion-input type="text" placeholder="Lista" [(ngModel)]="itemValue"></ion-input>
+            <button ion-button clear item-right (click)="searchList()"><i class="fa fa-search" style="font-size: large"></i></button>
         </ion-item>
         <ion-item class="fdcl-search">
-            <button ion-button full (click)="addList()">Adicionar Lista</button>
+            <button ion-button full (click)="createChecklistItem(itemValue)">Adicionar Lista</button>
+        </ion-item>
+        <ion-item *ngFor="let item of checklistItems | async">
+            <ion-label>{{ item.name }}</ion-label>
+            <ion-checkbox [ngModel]="item.checked" (click)="toggleChecklistItemChecked(item)"></ion-checkbox>
+            <button ion-button clear item-right (click)="removeChecklistItem(item)"><i class="fa fa-trash" style="font-size: large"></i></button>
         </ion-item>
     </ion-list>
 </ion-content>

@@ -11,11 +11,20 @@
             <button ion-button clear item-right (click)="searchList()"><i class="fa fa-search" style="font-size: large"></i></button>
         </ion-item>
         <ion-item class="fdcl-search">
-            <button ion-button full [disabled]="!listName" (click)="addList()">Adicionar Lista</button>
+            <button ion-button full [disabled]="!listName" (click)="addList()">Criar Lista</button>
         </ion-item>
-        <ion-item *ngFor="let list of lists">
-            {{ list }}
-            <button ion-button clear item-right (click)="removeList(list)"><i class="fa fa-trash" style="font-size: large"></i></button>
+        <ion-item *ngFor="let checklist of checklists" (click)="editList(checklist)">
+            {{ (checklist | async)?.name }}
+            <button ion-button clear item-right (click)="removeList(checklist)"><i class="fa fa-trash" style="font-size: large"></i></button>
         </ion-item>
     </ion-list>
 </ion-content>
+
+<ion-footer>
+    <div style="float: left; width: 50%; border-right: solid 1px white">
+    <button ion-button full [disabled]="!listName" (click)="addList()">Criar Lista</button>
+    </div>
+    <div style="float: right; width: 50%; border-left: solid 1px white">
+    <button ion-button full [disabled]="!listName" (click)="addList()">Importar Lista</button>
+    </div>
+</ion-footer>

@@ -1,2 +1,1 @@
-export * from './home.ctr';
-export * from './home.ser';
+export { HomeController } from './home.ctr';
