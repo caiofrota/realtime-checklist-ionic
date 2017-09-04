@@ -1,5 +1,16 @@
-page-home {
-    .fdcl-search {
-        background-color: #efefef;
+home {
+    .fdcl-nolist {
+        text-align: center;
+    }
+    .fdcl-footer {
+        width: 50%;
+    }
+    .fdcl-footer.btn-left {
+        float: left;
+        border-right: solid 1px white;
+    }
+    .fdcl-footer.btn-right {
+        float: right;
+        border-left: solid 1px white;
     }
 }

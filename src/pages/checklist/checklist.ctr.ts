@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component, OnInit, Pipe, PipeTransform, Injectable } from '@angular/core';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
 import { IChecklist, IChecklistItem, ChecklistService } from './'
 
@@ -28,7 +28,8 @@ export class ChecklistController implements OnInit {
      */
     constructor(private _navCtrl: NavController,
                 private _navParams: NavParams,
-                private _checklistService: ChecklistService) {
+                private _checklistService: ChecklistService,
+                private _alertController: AlertController) {
         // Do nothing.
     }
 
@@ -64,6 +65,25 @@ export class ChecklistController implements OnInit {
     public toggleChecklistItemChecked(item: IChecklistItem): void {
         item.checked = !item.checked;
         this._checklistService.updateChecklistItem(this.checklist.$ref.key, item);
+    }
+
+    public shareChecklist(): void {
+        let prompt = this._alertController.create({
+            title: 'Compartilhar Lista',
+            message: 'Copie o código da lista e compartilhe com quem você quiser!',
+            inputs: [{
+                name: 'checklistKey',
+                placeholder: 'Chave da lista.',
+                value: this.checklist.$ref.key
+            }],
+            buttons: [
+                {
+                    text: 'Pronto!',
+                    handler: (data: any) => { }
+                }
+            ]
+        });
+        prompt.present();
     }
 
     /**

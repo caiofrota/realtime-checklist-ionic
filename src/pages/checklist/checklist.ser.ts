@@ -19,7 +19,7 @@ export class ChecklistService {
     constructor(private _firebase: AngularFireDatabase) {
         // Do nothing.
     }
-
+    
     /**
      * Get checklist.
      * 

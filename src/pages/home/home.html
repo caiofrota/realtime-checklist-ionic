@@ -6,25 +6,22 @@
 
 <ion-content padding>
     <ion-list>
-        <ion-item class="fdcl-search">
-            <ion-input type="text" placeholder="Lista" [(ngModel)]="listName"></ion-input>
-            <button ion-button clear item-right (click)="searchList()"><i class="fa fa-search" style="font-size: large"></i></button>
-        </ion-item>
-        <ion-item class="fdcl-search">
-            <button ion-button full [disabled]="!listName" (click)="addList()">Criar Lista</button>
-        </ion-item>
-        <ion-item *ngFor="let checklist of checklists" (click)="editList(checklist)">
+        <ion-item *ngFor="let checklist of Object.keys(checklists)" (click)="editList(checklist)">
             {{ (checklist | async)?.name }}
             <button ion-button clear item-right (click)="removeList(checklist)"><i class="fa fa-trash" style="font-size: large"></i></button>
         </ion-item>
     </ion-list>
+    <div class="fdcl-nolist" [hidden]="checklists.length != 0">
+        <br/><br/><br/>
+        Você não possui listas! Criei ou importe nos botões abaixo!
+    </div>
 </ion-content>
 
 <ion-footer>
-    <div style="float: left; width: 50%; border-right: solid 1px white">
-    <button ion-button full [disabled]="!listName" (click)="addList()">Criar Lista</button>
+    <div class="fdcl-footer btn-left">
+        <button ion-button full (click)="createChecklist()">Criar Lista</button>
     </div>
-    <div style="float: right; width: 50%; border-left: solid 1px white">
-    <button ion-button full [disabled]="!listName" (click)="addList()">Importar Lista</button>
+    <div class="fdcl-footer btn-right">
+        <button ion-button full (click)="importChecklist()">Importar Lista</button>
     </div>
 </ion-footer>
