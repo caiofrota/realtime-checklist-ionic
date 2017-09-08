@@ -6,8 +6,11 @@
 
 <ion-content padding>
     <ion-list>
-        <ion-item *ngFor="let checklist of Object.keys(checklists)" (click)="editList(checklist)">
-            {{ (checklist | async)?.name }}
+        <ion-item>
+            <ion-searchbar [(ngModel)]="listName" (ionInput)="teste()"></ion-searchbar>
+        </ion-item>
+        <ion-item *ngFor="let checklist of filteredList" (click)="editList(checklist.value)">
+            {{ (checklist.value | async)?.name }}
             <button ion-button clear item-right (click)="removeList(checklist)"><i class="fa fa-trash" style="font-size: large"></i></button>
         </ion-item>
     </ion-list>

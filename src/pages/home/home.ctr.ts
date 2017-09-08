@@ -15,6 +15,7 @@ export class HomeController implements OnInit {
     listName: string;
     //checklists: Array<FirebaseObjectObservable<IChecklist>>;
     checklists: Array<any>;
+    filteredList: Array<any>;
 
     /**
      * Constructor.
@@ -28,6 +29,11 @@ export class HomeController implements OnInit {
                 private _alertController: AlertController,
                 private _toastCtrl: ToastController) {
         //_checklistService.teste();
+    }
+
+    teste() {
+        console.log(this.listName);
+        this.filteredList = this.checklists.filter((checklist) => checklist.name.indexOf(this.listName) !== -1);
     }
 
     /**
@@ -106,7 +112,7 @@ export class HomeController implements OnInit {
                                     });
                                     toast.present();
                                 } else {
-                                    this.checklists.push(checklist);
+                                    this.checklists.push({name: data.name, value: checklist});
                                     this.refreshLocalStorage();
                                     this.refreshLists();
                                     let toast: any = this._toastCtrl.create({
@@ -160,16 +166,25 @@ export class HomeController implements OnInit {
         this.checklists = [];
         let keys: Array<string> = JSON.parse(localStorage.getItem(this.LOCAL_STORAGE_LISTKEYS));
         keys.forEach((key) => {
-            let item: FirebaseObjectObservable<IChecklist> = this._checklistService.getChecklist(key).subscribe;
-            this.checklists.push({name: item.key, value: item});
+            let item: FirebaseObjectObservable<IChecklist> = this._checklistService.getChecklist(key);
+            let i: number = this.checklists.push({name: item.$ref.key, value: item});
+            console.log(i);
             item.subscribe(
                 (data: IChecklist) => {
                     if (!data['$exists']()) {
                         this.removeList(item);
+                    } else {
+                        this.checklists[i-1]['name'] = data.name;
                     }
                 }
             );
         });
+        this.checklists.sort((a, b) => {
+            if(a.name < b.name) return -1;
+            if(a.name > b.name) return 1;
+            return 0;
+        });
+        this.filteredList = this.checklists;
     }
 
     /**
@@ -177,9 +192,10 @@ export class HomeController implements OnInit {
      */
     private refreshLocalStorage(): void {
         let localStorageJSON = [];
-        this.checklists.forEach((data: FirebaseObjectObservable<IChecklist>) => {
-            let key = data.$ref.key; 
-            if (data.$ref.key.indexOf('checklists') >= 0) {
+        this.checklists.forEach((data: any) => {
+            console.log(data);
+            let key = data.value.$ref.key; 
+            if (data.value.$ref.key.indexOf('checklists') >= 0) {
                 key = key.substring(key.indexOf('checklists') + 10);
             }
             localStorageJSON.push(key);
